@@ -5,6 +5,7 @@
 - [x] Usunięcie kart jako budulca stronki
 - [ ] Mozliwosc pobrania pliku pogladowego historii zmian cen pod animacją log
 - [ ] Poprawka przycisku zgody przy formularzu
+- [ ] Przestrzeń między formularzem a footere
 - [ ] Podmiana moich danych na dane firmowe
 - [ ] Wersja w jezyku angielskim (oraz innych, jesli będzie taka potrzeba)
 - [x] Poprawki w darkmode

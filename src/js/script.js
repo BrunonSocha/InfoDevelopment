@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+
   const form = document.getElementById('contact-form');
   const status = document.getElementById('status');
 
@@ -92,10 +93,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const themeToggleBtn = document.getElementById('theme-toggle');
+  const easterEggBtn = document.getElementById('cyberpunk-toggle');
+  const themes = ['', 'dark', 'mono', 'ocean', 'forest', 'dusk'];
+  let currentThemeIndex = 0;
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.remove('mono', 'ocean', 'forest', 'dusk');
       document.documentElement.classList.toggle('dark');
+    });
+  }
+  
+  if (easterEggBtn) {
+    easterEggBtn.addEventListener('click', () => {
+      currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+      document.documentElement.className = themes[currentThemeIndex];
     });
   }
 

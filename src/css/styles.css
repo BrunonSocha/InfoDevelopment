@@ -1,6 +1,7 @@
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap');
 
 :root{
+  /* 1. Raw Color Palette */
   --c-white: #F7FCFE;
   --c-pure-white: #FFFFFF;
   --c-text: #3A343C;
@@ -14,7 +15,20 @@
   --c-dark-card: #1A1B1D;
   --c-dark-muted: #999CA1;
   --c-dark-input: #222325;
+  --c-mono-yellow: #ffd300;
+  --c-mono-yellow-hover: #ffdf40;
+  --c-mono-bg: #f5f5f5;
+  --c-mono-card: #eeeeee;
+  --c-mono-text: #212121;
+  --c-mono-muted: #757575;
+  --c-ocean-blue: #0077b6;
+  --c-ocean-blue-hover: #0096c7;
+  --c-forest-green: #40916c;
+  --c-forest-green-hover: #52b788;
+  --c-dusk-purple: #5a189a;
+  --c-dusk-purple-hover: #7b2cbf;
   
+  /* 2. Theming Variables (Light Mode) */
   --bg: var(--c-white);
   --fg: var(--c-text);
   --line: var(--c-white);
@@ -34,6 +48,34 @@ html.dark {
   --card: var(--c-dark-card);
   --muted: var(--c-dark-muted);
   --input-bg: var(--c-dark-input);
+}
+
+html.mono {
+  --bg: var(--c-mono-bg);
+  --fg: var(--c-mono-text);
+  --line: var(--c-mono-card);
+  --card: var(--c-mono-card);
+  --accent: var(--c-mono-yellow);
+  --accent-hover: var(--c-mono-yellow-hover);
+  --highlight: var(--c-mono-text);
+  --highlight-hover: var(--c-mono-text);
+  --muted: var(--c-mono-muted);
+  --input-bg: var(--c-pure-white);
+}
+
+html.ocean {
+  --accent: var(--c-ocean-blue);
+  --accent-hover: var(--c-ocean-blue-hover);
+}
+
+html.forest {
+  --accent: var(--c-forest-green);
+  --accent-hover: var(--c-forest-green-hover);
+}
+
+html.dusk {
+  --accent: var(--c-dusk-purple);
+  --accent-hover: var(--c-dusk-purple-hover);
 }
 
 *{box-sizing:border-box}
@@ -386,6 +428,8 @@ body.scrolled .banner {
 .dark-logo { display: none; }
 html.dark .light-logo { display: none; }
 html.dark .dark-logo { display: block; }
+html.mono .light-logo { display: block; }
+html.mono .dark-logo { display: none; }
 @media(min-width:768px){ .logo { height: 80px; } }
 
 .sub {
@@ -432,7 +476,13 @@ header .sub { margin-left: 0px; color: var(--fg); }
   line-height: 1.45;
   overflow: hidden;
   color: var(--accent);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+html.mono .code-log {
+  background-color: var(--line);
+  border-color: color-mix(in oklab, var(--fg) 10%, transparent);
+  color: var(--accent);
+  text-shadow: 0 0 5px color-mix(in oklab, var(--accent) 50%, transparent);
 }
 
 .faq-container {
@@ -509,6 +559,9 @@ details.is-opening .faq-content {
 html.dark .badge-highlight {
   color: var(--accent-hover);
 }
+html.mono .badge-highlight {
+  color: var(--accent);
+}
 
 #status.error { color: var(--highlight); }
 input[aria-invalid="true"], textarea[aria-invalid="true"] {
@@ -533,6 +586,19 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] {
   .small { flex-direction: column; justify-content: center; }
 }
 
+.easter-egg {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.easter-egg:hover {
+  color: var(--accent);
+}
+
 .hp {
   position: absolute;
   left: -10000px;
@@ -546,6 +612,7 @@ html.reduce-motion * {
   animation: none !important;
 }
 
+/* Dark Mode Button Overrides */
 html.dark button, 
 html.dark .button-like {
   background-color: color-mix(in oklab, var(--bg) 50%, var(--fg));
@@ -570,4 +637,20 @@ html.dark .theme-btn:hover {
   background: var(--fg);
   color: var(--bg);
   border-color: var(--fg);
+}
+
+/* Mono Mode Button Overrides */
+html.mono .button-like, html.mono button {
+  color: var(--c-dark-bg);
+}
+
+html.mono button:hover, html.mono .button-like:hover {
+  color: var(--c-dark-bg);
+}
+
+html.mono .theme-btn {
+  color: var(--fg);
+}
+html.mono .theme-btn:hover {
+  color: var(--bg);
 }
