@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const onScrollEnd = () => {
       if (heroSection) {
         heroSection.style.display = 'none';
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       }
       document.removeEventListener('scrollend', onScrollEnd);
     };
@@ -61,14 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-
+  const isEnglish = document.documentElement.lang === 'en';
   const form = document.getElementById('contact-form');
   const status = document.getElementById('status');
 
   if (form && status) {
+    const messages = {
+      sending: isEnglish ? 'Sending…' : 'Wysyłanie…',
+      success: isEnglish ? 'Thank you. We will be in touch shortly.' : 'Dziękujemy. Skontaktujemy się wkrótce.',
+      error: isEnglish ? 'Submission error. Please try again later.' : 'Błąd wysyłki. Spróbuj ponownie później.',
+      networkError: isEnglish ? 'Network error. Please try again later.' : 'Błąd sieci. Spróbuj ponownie później.'
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      status.textContent = 'Wysyłanie…';
+      status.textContent = messages.sending;
       const data = new FormData(form);
 
       try {
@@ -80,14 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (r.ok) {
           form.reset();
           status.classList.remove('error');
-          status.textContent = 'Dziękujemy. Skontaktujemy się wkrótce.';
+          status.textContent = messages.success;
         } else {
           status.classList.add('error');
-          status.textContent = 'Błąd wysyłki. Spróbuj ponownie później.';
+          status.textContent = messages.error;
         }
       } catch {
         status.classList.add('error');
-        status.textContent = 'Błąd sieci. Spróbuj ponownie później.';
+        status.textContent = messages.networkError;
       }
     });
   }
@@ -110,6 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.className = themes[currentThemeIndex];
     });
   }
+
+  document.querySelectorAll('.lang-switcher a').forEach(link => {
+    link.addEventListener('click', e => {
+      if (link.classList.contains('lang-active')) {
+        e.preventDefault();
+        return;
+      }
+      e.preventDefault();
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = link.href;
+      }, 300);
+    });
+  });
 
   (function() {
     const table = document.getElementById('data-table');
@@ -182,7 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
       scrambleDone = true;
     }
 
-    const logLines = [
+    const logLines = isEnglish ? [
+      '[info] initializing InfoDevelopment pipeline...',
+      '[ok]  connected to dane.gov.pl endpoint',
+      '[info] validating dataset: 3 rows, 5 fields',
+      '[ok]  schema: valid (v1.2)',
+      '[info] transforming prices → PLN/m²',
+      '[ok]  payload ready (842 bytes)',
+      '[info] price archive ready for export...',
+      '[send] POST /api/report 200 OK',
+      '[done] task completed'
+    ] : [
       '[info] inicjalizacja potoku InfoDevelopment...',
       '[ok]  połączono z punktem końcowym dane.gov.pl',
       '[info] walidacja zbioru danych: 3 wiersze, 5 pól',

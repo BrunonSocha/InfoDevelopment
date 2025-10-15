@@ -5,7 +5,7 @@
 - [x] Usunięcie kart jako budulca stronki
 - [ ] Podpiąć formularz pod formspree
 - [ ] Mozliwosc pobrania pliku pogladowego historii zmian cen pod animacją log / wizualizacja, jak wygląda taki plik
-- [ ] Poprawka przycisku zgody przy formularzu
+- [x] Poprawka przycisku zgody przy formularzu
 - [x] Przestrzeń między formularzem a footere
 - [ ] Podmiana moich danych na dane firmowe
 - [ ] Wersja w jezyku angielskim (oraz innych, jesli będzie taka potrzeba)
