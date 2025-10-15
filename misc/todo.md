@@ -1,0 +1,14 @@
+## To do
+- [x] Animacja zmieniających literek + log
+- [x] Smooth scroll bez skoku dalej
+- [x] Formularz
+- [x] Usunięcie kart jako budulca stronki
+- [ ] Mozliwosc pobrania pliku pogladowego historii zmian cen pod animacją log
+- [ ] Poprawka przycisku zgody przy formularzu
+- [ ] Podmiana moich danych na dane firmowe
+- [ ] Wersja w jezyku angielskim (oraz innych, jesli będzie taka potrzeba)
+- [x] Poprawki w darkmode
+- [ ] Rewizja ogolna palety barw (Alternatywne palety wprowadzone)
+- [ ] Dodac komentarze do CSS oraz JS, zeby wiadomo bylo co jest czym
+- [ ] Optymalizacja SEO
+- [ ] Wersja z interaktywna tabelką (jesli bedzie taka prosba/wystarczy czasu na demo)
