@@ -424,9 +424,16 @@ body.scrolled .banner {
   align-items: center;
   justify-content: space-between;
   padding: 16px 0;
+  flex-wrap: wrap;
 }
 
-.banner-right { display: flex; align-items: center; gap: 12px; }
+.banner-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 
 .login-btn, .theme-btn {
   margin-top: 0;
