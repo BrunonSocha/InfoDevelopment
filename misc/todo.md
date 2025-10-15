@@ -3,13 +3,14 @@
 - [x] Smooth scroll bez skoku dalej
 - [x] Formularz
 - [x] Usunięcie kart jako budulca stronki
-- [ ] Mozliwosc pobrania pliku pogladowego historii zmian cen pod animacją log
+- [ ] Podpiąć formularz pod formspree
+- [ ] Mozliwosc pobrania pliku pogladowego historii zmian cen pod animacją log / wizualizacja, jak wygląda taki plik
 - [ ] Poprawka przycisku zgody przy formularzu
-- [ ] Przestrzeń między formularzem a footere
+- [x] Przestrzeń między formularzem a footere
 - [ ] Podmiana moich danych na dane firmowe
 - [ ] Wersja w jezyku angielskim (oraz innych, jesli będzie taka potrzeba)
 - [x] Poprawki w darkmode
-- [ ] Rewizja ogolna palety barw (Alternatywne palety wprowadzone)
+- [x] Rewizja ogolna palety barw (Alternatywne palety wprowadzone)
 - [ ] Dodac komentarze do CSS oraz JS, zeby wiadomo bylo co jest czym
 - [ ] Optymalizacja SEO
 - [ ] Wersja z interaktywna tabelką (jesli bedzie taka prosba/wystarczy czasu na demo)
