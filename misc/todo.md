@@ -5,11 +5,11 @@
 - [x] Usunięcie kart jako budulca stronki
 - [ ] Podpiąć formularz pod formspree
 - [ ] Mozliwosc pobrania pliku pogladowego historii zmian cen pod animacją log / wizualizacja, jak wygląda taki plik
-- [ ] Angielska wersja privacy oraz imprint
+- [x] Angielska wersja privacy oraz imprint
 - [x] Poprawka przycisku zgody przy formularzu
 - [x] Przestrzeń między formularzem a footere
 - [ ] Podmiana moich danych na dane firmowe
-- [ ] Wersja w jezyku angielskim (oraz innych, jesli będzie taka potrzeba)
+- [x] Wersja w jezyku angielskim (oraz innych, jesli będzie taka potrzeba)
 - [x] Poprawki w darkmode
 - [x] Rewizja ogolna palety barw (Alternatywne palety wprowadzone)
 - [ ] Dodac komentarze do CSS oraz JS, zeby wiadomo bylo co jest czym

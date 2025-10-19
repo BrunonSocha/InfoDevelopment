@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>InfoDevelopment — Automatyzacja raportowania cen mieszkań</title>
-  
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="src/css/styles.css" />
 </head>
 <body>
@@ -67,7 +67,7 @@
       <a href="#contact" class="button-like">Skontaktuj się i uniknij kar</a>
     </section>
 
-    <section class="content-section how-it-works">
+    <section class="content-section how-it-works-steps">
       <h2>Proces, któremu możesz zaufać</h2>
       <p class="section-subtitle">Nasza technologia działa w tle, aby zapewnić Ci spokój i zgodność z przepisami.</p>
       <div class="steps-grid">
@@ -93,46 +93,75 @@
           <p>Dane są bezpiecznie przesyłane do `dane.gov.pl`. Przechowujemy pełną historię raportów, gotową do wglądu na wypadek kontroli urzędowej.</p>
         </div>
       </div>
+    </section>
 
-      <div class="showcase-container">
-        <table id="data-table" class="scramble-table">
-          <thead>
-            <tr>
-              <th>Mieszkanie</th><th>Cena (m²)</th><th>Metraż</th><th>Pełna cena</th><th>Dostępność</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-final="A-314">NULL</td>
-              <td data-final="4 920 zł/m²">NULL</td>
-              <td data-final="55.2 m²">NULL</td>
-              <td data-final="271 584 zł">NULL</td>
-              <td data-final="Dostępne">NULL</td>
-            </tr>
-            <tr>
-              <td data-final="B-902">NULL</td>
-              <td data-final="6 150 zł/m²">NULL</td>
-              <td data-final="71.5 m²">NULL</td>
-              <td data-final="439 725 zł">NULL</td>
-              <td data-final="Dostępne">NULL</td>
-            </tr>
-            <tr>
-              <td data-final="C-771">NULL</td>
-              <td data-final="5 480 zł/m²">NULL</td>
-              <td data-final="48.9 m²">NULL</td>
-              <td data-final="267 972 zł">NULL</td>
-              <td data-final="Dostępne">NULL</td>
-            </tr>
-          </tbody>
-        </table>
-        <pre id="log" class="code-log" aria-live="polite"></pre>
-      </div>
+    <section class="content-section how-it-works-demo">
+        <h2>Jak to działa?</h2>
+        <div class="showcase-container">
+            <table id="data-table" class="product-table">
+            <thead>
+                <tr>
+                <th>Mieszkanie</th>
+                <th>Powierzchnia</th>
+                <th>Ogródek</th>
+                <th>Cena za m²</th>
+                <th>Cena iloczyn</th>
+                <th>Miejsce post.</th>
+                <th>Cena za całość</th>
+                <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-apt-id="A1">
+                <td>A1</td>
+                <td>65,20 m²</td>
+                <td>12,5 m²</td>
+                <td class="price-cell" data-col="cena-m2"><span>8 000,00 zł</span></td>
+                <td class="price-cell" data-col="cena-iloczyn"><span>521 600,00 zł</span></td>
+                <td class="price-cell" data-col="cena-mp"><span>15 000,00 zł</span></td>
+                <td class="price-cell" data-col="cena-calosc"><span>536 600,00 zł</span></td>
+                <td><span class="status-badge status-wolne">Wolne</span></td>
+                </tr>
+                <tr data-apt-id="A2">
+                <td>A2</td>
+                <td>45,10 m²</td>
+                <td>---</td>
+                <td class="price-cell" data-col="cena-m2"><span>8 200,00 zł</span></td>
+                <td class="price-cell" data-col="cena-iloczyn"><span>369 820,00 zł</span></td>
+                <td class="price-cell" data-col="cena-mp"><span>15 000,00 zł</span></td>
+                <td class="price-cell" data-col="cena-calosc"><span>384 820,00 zł</span></td>
+                <td><span class="status-badge status-rezerwacja">Rezerwacja</span></td>
+                </tr>
+                <tr data-apt-id="A3">
+                <td>A3</td>
+                <td>84,33 m²</td>
+                <td>25,0 m²</td>
+                <td class="price-cell" data-col="cena-m2"><span>7 800,00 zł</span></td>
+                <td class="price-cell" data-col="cena-iloczyn"><span>657 774,00 zł</span></td>
+                <td class="price-cell" data-col="cena-mp"><span>20 000,00 zł</span></td>
+                <td class="price-cell" data-col="cena-calosc"><span>677 774,00 zł</span></td>
+                <td><span class="status-badge status-sprzedane">Sprzedane</span></td>
+                </tr>
+                <tr data-apt-id="A4">
+                <td>A4</td>
+                <td>55,20 m²</td>
+                <td>---</td>
+                <td class="price-cell" data-col="cena-m2"><span>8 150,00 zł</span></td>
+                <td class="price-cell" data-col="cena-iloczyn"><span>449 880,00 zł</span></td>
+                <td class="price-cell" data-col="cena-mp"><span>15 000,00 zł</span></td>
+                <td class="price-cell" data-col="cena-calosc"><span>464 880,00 zł</span></td>
+                <td><span class="status-badge status-wolne">Wolne</span></td>
+                </tr>
+            </tbody>
+            </table>
+            <pre id="log" class="code-log" aria-live="polite"></pre>
+        </div>
     </section>
 
     <section class="content-section" aria-labelledby="offer">
       <h2 id="offer">Kluczowe korzyści naszego rozwiązania</h2>
       <p class="badge-highlight">CENY JUŻ OD 1900 ZŁ NETTO, w tym darmowy audyt.</p>
-      
+
       <ul class="benefits-list">
         <li>
           <div class="benefit-icon">
@@ -198,7 +227,7 @@
         </details>
       </div>
     </section>
-    
+
     <section class="card" id="contact" aria-labelledby="contact">
       <h2 id="contact-title">Skontaktuj się z nami!</h2>
       <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
@@ -217,9 +246,9 @@
   <footer class="wrap small">
     <p>© <button id="cyberpunk-toggle" class="easter-egg">2025</button> InfoDevelopment. Wszelkie prawa zastrzeżone.</p>
     <div class="footer-links">
-      <a href="mailto:brunon.socha@gmail.com">Napisz</a> • 
-      <a href="tel:668830062">Zadzwoń</a> • 
-      <a href="src/pages/imprint.html">Imprint</a> • 
+      <a href="mailto:brunon.socha@gmail.com">Napisz</a> •
+      <a href="tel:668830062">Zadzwoń</a> •
+      <a href="src/pages/imprint.html">Imprint</a> •
       <a href="src/pages/privacy.html">Polityka prywatności</a>
     </div>
   </footer>

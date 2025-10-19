@@ -54,7 +54,7 @@ function initHero() {
 
 function initStickyBanner() {
   const heroLogo = document.querySelector('.hero-logo');
-  
+
   window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
 
@@ -80,7 +80,7 @@ function initFormHandler() {
 
   const status = document.getElementById('status');
   const isEnglish = document.documentElement.lang === 'en';
-  
+
   const messages = {
     sending: isEnglish ? 'Sending…' : 'Wysyłanie…',
     success: isEnglish ? 'Thank you. We will be in touch shortly.' : 'Dziękujemy. Skontaktujemy się wkrótce.',
@@ -126,7 +126,7 @@ function initThemeSwitcher() {
       document.documentElement.classList.toggle('dark');
     });
   }
-  
+
   if (easterEggBtn) {
     easterEggBtn.addEventListener('click', () => {
       currentThemeIndex = (currentThemeIndex + 1) % themes.length;
@@ -156,147 +156,230 @@ function initPageTransitions() {
   });
 }
 
+const mockPriceData = {
+  "A1": {
+    "cena-calosc": [
+      { date: "2025-10-18", price: 536600 },
+      { date: "2025-10-10", price: 539000 },
+      { date: "2025-09-25", price: 530000 },
+    ]
+  },
+  "A2": {
+    "cena-calosc": [
+      { date: "2025-10-15", price: 384820 }
+    ]
+  },
+  "A3": {
+    "cena-calosc": [
+      { date: "2025-09-30", price: 677774 }
+    ]
+  },
+  "A4": {
+    "cena-calosc": [
+      { date: "2025-10-17", price: 464880 },
+      { date: "2025-10-05", price: 470000 },
+    ]
+  }
+};
+
+function initPriceTooltips() {
+  const tooltip = document.getElementById('price-tooltip');
+  if (!tooltip) return;
+
+  const isEnglish = document.documentElement.lang === 'en';
+
+  document.querySelectorAll('.price-cell').forEach(cell => {
+    cell.addEventListener('mouseenter', (e) => {
+      const aptId = e.target.closest('tr').dataset.aptId;
+      const colId = e.target.dataset.col;
+      const history = (mockPriceData[aptId] && mockPriceData[aptId][colId]) ||
+                      (mockPriceData[aptId] && mockPriceData[aptId]['cena-calosc']);
+
+      if (!history || history.length === 0) return;
+
+      const prices = history.map(h => h.price);
+      const lowestPrice = Math.min(...prices);
+
+      let historyHtml = history.map(item => `
+        <li>
+          <span>${item.date}</span>
+          <span class="${item.price === lowestPrice ? 'lowest-price' : ''}">
+            ${item.price.toLocaleString(isEnglish ? 'en-US' : 'pl-PL')} ${isEnglish ? 'PLN' : 'zł'}
+          </span>
+        </li>
+      `).join('');
+
+      tooltip.innerHTML = `
+        <h4>${isEnglish ? 'Price History' : 'Historia Ceny'}</h4>
+        <ul>${historyHtml}</ul>
+        <div class="lowest-price" style="margin-top: 8px; font-size: 12px;">
+          ${isEnglish ? 'Lowest price (30 days):' : 'Najniższa cena (30 dni):'}
+          ${lowestPrice.toLocaleString(isEnglish ? 'en-US' : 'pl-PL')} ${isEnglish ? 'PLN' : 'zł'}
+        </div>
+      `;
+      tooltip.style.display = 'block';
+    });
+
+    cell.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+
+    cell.addEventListener('mousemove', (e) => {
+      const xOffset = window.innerWidth - e.pageX < 300 ? -300 : 15;
+      tooltip.style.left = `${e.pageX + xOffset}px`;
+      tooltip.style.top = `${e.pageY + 15}px`;
+    });
+  });
+}
+
 function initAnimations() {
-  const table = document.getElementById('data-table');
   const logEl = document.getElementById('log');
-  if (!table || !logEl) return;
+  const table = document.getElementById('data-table');
+  if (!logEl || !table) return;
 
   const isEnglish = document.documentElement.lang === 'en';
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let logLinesCount = 0;
+  const maxLogLines = 10;
+  let simulationInterval;
+  let typingInProgress = false;
+  const typingSpeed = 15;
 
-  function scrambleCell(cell, finalText, duration = 900) {
-    return new Promise(resolve => {
-      if (prefersReduced) {
-        cell.textContent = finalText;
-        return resolve();
-      }
-
-      const NUMS = '0123456789';
-      const ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      const POWERS = '²³⁴⁵⁶⁷⁸⁹';
-
-      const getRandomChar = (originalChar) => {
-        if (NUMS.includes(originalChar)) return NUMS[Math.floor(Math.random() * NUMS.length)];
-        if (ALPHA.includes(originalChar.toUpperCase())) return ALPHA[Math.floor(Math.random() * ALPHA.length)];
-        if (POWERS.includes(originalChar)) return POWERS[Math.floor(Math.random() * POWERS.length)];
-        return originalChar;
-      };
-
-      const start = performance.now();
-
-      function tick(now) {
-        const linearT = Math.min(1, (now - start) / duration);
-        const t = 0.5 * (1 - Math.cos(Math.PI * linearT));
-        
-        const keep = Math.floor(finalText.length * t);
-        const tail = Array.from(finalText.slice(keep))
-                           .map(char => getRandomChar(char))
-                           .join('');
-        
-        cell.textContent = finalText.slice(0, keep) + tail;
-        
-        if (linearT < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          cell.textContent = finalText;
-          resolve();
-        }
-      }
-      requestAnimationFrame(tick);
-    });
-  }
-
-  async function scrambleTable() {
-    const cells = Array.from(table.querySelectorAll('tbody td'));
-    const rows = [];
-    const columns = table.querySelector('thead th').length || 5;
-    for (let i = 0; i < cells.length; i += columns) rows.push(cells.slice(i, i + columns));
-    
-    for (const row of rows) {
-      for (const td of row) {
-        scrambleCell(td, td.getAttribute('data-final') || td.textContent);
-        await delay(75);
-      }
-      await delay(300); 
-    }
-  }
-
-  const logLines = isEnglish ? [
-    '[info] initializing InfoDevelopment pipeline...',
-    '[ok]  connected to dane.gov.pl endpoint',
-    '[info] validating dataset: 3 rows, 5 fields',
-    '[ok]  schema: valid (v1.2)',
-    '[info] transforming prices → PLN/m²',
-    '[ok]  payload ready (842 bytes)',
-    '[info] price archive ready for export...',
-    '[send] POST /api/report 200 OK',
-    '[done] task completed'
+  const initialLogs = isEnglish ? [
+    { class: 'log-info', text: '[info] InfoDevelopment pipeline initializing...' },
+    { class: 'log-ok', text: '[ok] Connected to dane.gov.pl endpoint.' },
+    { class: 'log-info', text: '[info] Watching 4 apartments for price changes...' }
   ] : [
-    '[info] inicjalizacja potoku InfoDevelopment...',
-    '[ok]  połączono z punktem końcowym dane.gov.pl',
-    '[info] walidacja zbioru danych: 3 wiersze, 5 pól',
-    '[ok]  schemat: poprawny (v1.2)',
-    '[info] transformacja cen → PLN/m²',
-    '[ok]  ładunek gotowy (842 bajty)',
-    '[info] archiwum cen gotowe do eksportu...',
-    '[send] POST /api/report 200 OK',
-    '[done] zadanie zakończone'
+    { class: 'log-info', text: '[info] Inicjalizacja potoku InfoDevelopment...' },
+    { class: 'log-ok', text: '[ok] Połączono z punktem końcowym dane.gov.pl.' },
+    { class: 'log-info', text: '[info] Obserwowanie 4 mieszkań pod kątem zmian cen...' }
   ];
 
-  function typeLog(lines, speed = 18) {
-    return new Promise(resolve => {
-      if (prefersReduced) {
-        logEl.textContent = lines.join('\n');
-        return resolve();
+  function typeLine(spanElement, fullText, callback) {
+    if (prefersReduced || !fullText) {
+      spanElement.textContent = fullText;
+      if (callback) callback();
+      return;
+    }
+
+    let i = 0;
+    typingInProgress = true;
+    function step() {
+      if (i < fullText.length) {
+        spanElement.textContent = fullText.substring(0, i + 1) + '▌';
+        i++;
+        setTimeout(step, typingSpeed);
+      } else {
+        spanElement.textContent = fullText;
+        typingInProgress = false;
+        if (callback) callback();
       }
-      let i = 0, j = 0;
-      function step() {
-        if (i >= lines.length) {
-          logEl.textContent = lines.join('\n');
-          return resolve();
-        }
-        const line = lines[i];
-        if (j <= line.length) {
-          const current = line.slice(0, j);
-          logEl.textContent = lines.slice(0, i).join('\n') + (i ? '\n' : '') + current + '▌';
-          j++;
-          setTimeout(step, speed);
-        } else {
-          logEl.textContent = lines.slice(0, i + 1).join('\n');
-          i++;
-          j = 0;
-          setTimeout(step, 160);
-        }
+    }
+    step();
+  }
+
+  function addLog(logEntry) {
+    if (!logEl) return;
+
+    if (typingInProgress) {
+        setTimeout(() => addLog(logEntry), typingSpeed * 5);
+        return;
+    }
+
+    const span = document.createElement('span');
+    span.className = logEntry.class;
+    logEl.appendChild(span);
+    logLinesCount++;
+
+    while (logLinesCount > maxLogLines) {
+      if (logEl.firstChild) {
+         logEl.removeChild(logEl.firstChild);
+         logLinesCount--;
+      } else {
+         break;
       }
-      step();
+    }
+
+    typeLine(span, logEntry.text, () => {
+        logEl.scrollTop = logEl.scrollHeight;
     });
   }
 
+  initialLogs.forEach(addLog);
+
   if (prefersReduced) {
-    const tds = table.querySelectorAll('tbody td');
-    tds.forEach(td => td.textContent = td.getAttribute('data-final') || td.textContent);
-    logEl.textContent = logLines.join('\n');
+    addLog({
+      class: 'log-info',
+      text: isEnglish ? '[info] Animations disabled (prefers-reduced-motion).' : '[info] Animacje wyłączone (prefers-reduced-motion).'
+    });
     return;
   }
-  
+
+  function simulatePriceChange() {
+    const availableApts = ['A1', 'A4'];
+    const aptId = availableApts[Math.floor(Math.random() * availableApts.length)];
+    const row = table.querySelector(`tr[data-apt-id="${aptId}"]`);
+    if (!row) return;
+
+    const cell = row.querySelector('[data-col="cena-calosc"]');
+    const history = mockPriceData[aptId]['cena-calosc'];
+    if (!history || history.length === 0) return;
+    const currentPrice = history[0].price;
+
+    const changePercent = (Math.random() * 0.05) - 0.02;
+    let newPrice = Math.round(currentPrice * (1 + changePercent));
+    newPrice = Math.round(newPrice / 100) * 100;
+
+    if (newPrice === currentPrice) return;
+
+    const flashClass = newPrice > currentPrice ? 'price-flash-up' : 'price-flash-down';
+    const newPriceString = `${newPrice.toLocaleString(isEnglish ? 'en-US' : 'pl-PL')} ${isEnglish ? 'PLN' : 'zł'}`;
+
+    cell.textContent = newPriceString;
+    cell.classList.remove('price-flash-up', 'price-flash-down');
+    void cell.offsetWidth;
+    cell.classList.add(flashClass);
+
+    const newDate = new Date().toISOString().split('T')[0];
+    history.unshift({ date: newDate, price: newPrice });
+
+    addLog({
+      class: 'log-change',
+      text: `[${isEnglish ? 'PRICE_UPDATE' : 'ZMIANA_CENY'}] Apt ${aptId}: ${newPriceString}`
+    });
+    setTimeout(() => {
+        addLog({
+          class: 'log-info',
+          text: `[info] ${isEnglish ? 'New price archived. Submitting update...' : 'Nowa cena zarchiwizowana. Wysyłanie aktualizacji...'}`
+        });
+    }, 50);
+
+  }
+
+  simulationInterval = setInterval(simulatePriceChange, 4500);
+
   new IntersectionObserver((entries, obs) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        obs.disconnect();
-        setTimeout(() => {
-          scrambleTable();
-          typeLog(logLines);
-        }, 1000);
+      if (!e.isIntersecting && simulationInterval) {
+        clearInterval(simulationInterval);
+        simulationInterval = null;
+      } else if (e.isIntersecting && !simulationInterval && !prefersReduced) {
+         simulationInterval = setInterval(simulatePriceChange, 4500);
       }
     });
-  }, { threshold: 0.75 }).observe(table);
+  }, { threshold: 0.1 }).observe(table);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const tooltip = document.createElement('div');
+  tooltip.id = 'price-tooltip';
+  document.body.appendChild(tooltip);
+
   initHero();
   initStickyBanner();
   initFormHandler();
   initThemeSwitcher();
   initPageTransitions();
+  initPriceTooltips();
   initAnimations();
 });
