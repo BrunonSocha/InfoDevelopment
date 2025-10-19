@@ -1,106 +1,240 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>InfoDevelopment — Automatyzacja raportowania cen mieszkań</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>InfoDevelopment — Automatyzacja raportowania cen mieszkań</title>
 
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="src/css/styles.css" />
-</head>
-<body>
-
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-logo">
-        <img src="src/images/logo1.png" alt="InfoDevelopment logo" class="logo light-logo">
-        <img src="src/images/logo2.png" alt="InfoDevelopment logo — dark" class="logo dark-logo">
+    <link rel="stylesheet" href="src/css/styles.css" />
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-logo">
+          <img
+            src="src/images/logo1.png"
+            alt="InfoDevelopment logo"
+            class="logo light-logo"
+          />
+          <img
+            src="src/images/logo2.png"
+            alt="InfoDevelopment logo — dark"
+            class="logo dark-logo"
+          />
+        </div>
+        <h1>Technologia, która raportuje za Ciebie.</h1>
+        <p>
+          Zautomatyzuj obowiązek raportowania cen mieszkań do dane.gov.pl i
+          uniknij kar UOKiK.
+        </p>
+        <a
+          href="#main-content-start"
+          class="scroll-down-arrow"
+          aria-label="Przewiń w dół"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 20L12 4"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M18 14L12 20L6 14"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
       </div>
-      <h1>Technologia, która raportuje za Ciebie.</h1>
-      <p>Zautomatyzuj obowiązek raportowania cen mieszkań do dane.gov.pl i uniknij kar UOKiK.</p>
-      <a href="#main-content-start" class="scroll-down-arrow" aria-label="Przewiń w dół">
-        <svg width="24" height="24" viewBox="0 0 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 20L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M18 14L12 20L6 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+    </section>
+
+    <div class="banner">
+      <header class="wrap banner-content">
+        <div class="logo-block">
+          <img
+            src="src/images/logo1.png"
+            alt="InfoDevelopment logo"
+            class="logo light-logo"
+          />
+          <img
+            src="src/images/logo2.png"
+            alt="InfoDevelopment logo — dark"
+            class="logo dark-logo"
+          />
+          <p class="sub">TECHNOLOGIA, KTÓRA RAPORTUJE ZA CIEBIE.</p>
+        </div>
+        <div class="banner-right">
+          <div class="lang-switcher">
+            <a href="index.html" class="lang-active">PL</a>
+            <a href="index-en.html">EN</a>
+          </div>
+          <button id="theme-toggle" class="button-like theme-btn">
+            Tryb ciemny
+          </button>
+          <a
+            href="https://dane.infodevelopment.pl/"
+            class="button-like login-btn"
+            >Panel Klienta</a
+          >
+        </div>
+      </header>
     </div>
-  </section>
 
-  <div class="banner">
-    <header class="wrap banner-content">
-      <div class="logo-block">
-        <img src="src/images/logo1.png" alt="InfoDevelopment logo" class="logo light-logo">
-        <img src="src/images/logo2.png" alt="InfoDevelopment logo — dark" class="logo dark-logo">
-        <p class="sub">TECHNOLOGIA, KTÓRA RAPORTUJE ZA CIEBIE.</p>
-      </div>
-      <div class="banner-right">
-        <div class="lang-switcher">
-          <a href="index.html" class="lang-active">PL</a>
-          <a href="index-en.html">EN</a>
-        </div>
-        <button id="theme-toggle" class="button-like theme-btn">Tryb ciemny</button>
-        <a href="https://dane.infodevelopment.pl/" class="button-like login-btn">Panel Klienta</a>
-      </div>
-    </header>
-  </div>
-
-  <main class="wrap">
-    <section class="intro-risk" id="main-content-start">
-      <h2>Czy twoja firma jest gotowa na 11 września 2025?</h2>
-      <p class="section-subtitle">Nowa ustawa o jawności cen mieszkań wprowadza obowiązek, którego nie można zignorować.</p>
-      <div class="intro-grid">
-        <div>
-          <h3>Nowy obowiązek raportowania</h3>
-          <p>Od 11 września 2025 r. każdy deweloper będzie musiał regularnie przesyłać dane o cenach sprzedawanych mieszkań do rządowego portalu. <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20230001692" target="_blank" rel="noopener noreferrer">Przeczytaj treść ustawy</a>.</p>
-        </div>
-        <div>
-          <h3>Ryzyko wysokich kar</h3>
-          <p>Brak zgodności z nowymi przepisami grozi karą finansową nakładaną przez UOKiK, sięgającą nawet <span class="highlight">10% rocznego obrotu</span>.</p>
-        </div>
-      </div>
-      <a href="#contact" class="button-like">Skontaktuj się i uniknij kar</a>
-    </section>
-
-    <section class="content-section how-it-works-steps">
-      <h2>Proces, któremu możesz zaufać</h2>
-      <p class="section-subtitle">Nasza technologia działa w tle, aby zapewnić Ci spokój i zgodność z przepisami.</p>
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-4"/><path d="m12 12-4-2-4 2"/><path d="m12 12 4-2 4 2"/><path d="M12 12v4"/><path d="m12 16-4-2-4 2"/><path d="m12 16 4-2 4 2"/><path d="M4 10V8l8-4 8 4v2"/><path d="m4 14 8 4 8-4"/></svg>
+    <main class="wrap">
+      <section class="intro-risk" id="main-content-start">
+        <h2>Czy twoja firma jest gotowa na 11 września 2025?</h2>
+        <p class="section-subtitle">
+          Nowa ustawa o jawności cen mieszkań wprowadza obowiązek, którego nie
+          można zignorować.
+        </p>
+        <div class="intro-grid">
+          <div>
+            <h3>Nowy obowiązek raportowania</h3>
+            <p>
+              Od 11 września 2025 r. każdy deweloper będzie musiał regularnie
+              przesyłać dane o cenach sprzedawanych mieszkań do rządowego
+              portalu.
+              <a
+                href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20230001692"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Przeczytaj treść ustawy</a
+              >.
+            </p>
           </div>
-          <h3>Integracja z Twoim systemem</h3>
-          <p>Łączymy się z Twoją stroną internetową. Proces jest jednorazowy i nie wymaga skomplikowanych zmian po Twojej stronie.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          <div>
+            <h3>Ryzyko wysokich kar</h3>
+            <p>
+              Brak zgodności z nowymi przepisami grozi karą finansową nakładaną
+              przez UOKiK, sięgającą nawet
+              <span class="highlight">10% rocznego obrotu</span>.
+            </p>
           </div>
-          <h3>Automatyczne przetwarzanie</h3>
-          <p>Nasz system automatycznie pobiera, waliduje i transformuje dane zgodnie z wymogami ustawy, eliminując ryzyko błędów ludzkich.</p>
         </div>
-        <div class="step-card">
-          <div class="step-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
-          </div>
-          <h3>Raportowanie i archiwizacja</h3>
-          <p>Dane są bezpiecznie przesyłane do `dane.gov.pl`. Przechowujemy pełną historię raportów, gotową do wglądu na wypadek kontroli urzędowej.</p>
-        </div>
-      </div>
-    </section>
+        <a href="#contact" class="button-like">Skontaktuj się i uniknij kar</a>
+      </section>
 
-    <section class="content-section how-it-works-demo">
+      <section class="content-section how-it-works-steps">
+        <h2>Proces, któremu możesz zaufać</h2>
+        <p class="section-subtitle">
+          Nasza technologia działa w tle, aby zapewnić Ci spokój i zgodność z
+          przepisami.
+        </p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 20v-4" />
+                <path d="m12 12-4-2-4 2" />
+                <path d="m12 12 4-2 4 2" />
+                <path d="M12 12v4" />
+                <path d="m12 16-4-2-4 2" />
+                <path d="m12 16 4-2 4 2" />
+                <path d="M4 10V8l8-4 8 4v2" />
+                <path d="m4 14 8 4 8-4" />
+              </svg>
+            </div>
+            <h3>Integracja z Twoim systemem</h3>
+            <p>
+              Łączymy się z Twoją stroną internetową. Proces jest jednorazowy i
+              nie wymaga skomplikowanych zmian po Twojej stronie.
+            </p>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 8V4H8" />
+                <rect width="16" height="12" x="4" y="8" rx="2" />
+                <path d="M2 14h2" />
+                <path d="M20 14h2" />
+                <path d="M15 13v2" />
+                <path d="M9 13v2" />
+              </svg>
+            </div>
+            <h3>Automatyczne przetwarzanie</h3>
+            <p>
+              Nasz system automatycznie pobiera, waliduje i transformuje dane
+              zgodnie z wymogami ustawy, eliminując ryzyko błędów ludzkich.
+            </p>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+                <path d="m9 15 2 2 4-4" />
+              </svg>
+            </div>
+            <h3>Raportowanie i archiwizacja</h3>
+            <p>
+              Dane są bezpiecznie przesyłane do `dane.gov.pl`. Przechowujemy
+              pełną historię raportów, gotową do wglądu na wypadek kontroli
+              urzędowej.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section how-it-works-demo">
         <h2>Jak to działa?</h2>
         <div class="showcase-container">
-            <table id="data-table" class="product-table">
+          <table id="data-table" class="product-table">
             <thead>
-                <tr>
+              <tr>
                 <th>Mieszkanie</th>
                 <th>Powierzchnia</th>
                 <th>Cena za m²</th>
@@ -108,147 +242,312 @@
                 <th>Miejsce post.</th>
                 <th>Cena za całość</th>
                 <th>Status</th>
-                </tr>
+              </tr>
             </thead>
             <tbody>
-                <tr data-apt-id="A1">
+              <tr data-apt-id="A1">
                 <td>A1</td>
                 <td>65,20 m²</td>
-                <td class="price-cell" data-col="cena-m2"><span>8 000,00 zł</span></td>
-                <td class="price-cell" data-col="cena-lokal"><span>521 600,00 zł</span></td>
-                <td class="price-cell" data-col="cena-mp"><span>15 000,00 zł</span></td>
-                <td class="price-cell" data-col="cena-calosc"><span>536 600,00 zł</span></td>
+                <td class="price-cell" data-col="cena-m2">
+                  <span>8 000,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-lokal">
+                  <span>521 600,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-mp">
+                  <span>15 000,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-calosc">
+                  <span>536 600,00 zł</span>
+                </td>
                 <td><span class="status-badge status-wolne">Wolne</span></td>
-                </tr>
-                <tr data-apt-id="A2">
+              </tr>
+              <tr data-apt-id="A2">
                 <td>A2</td>
                 <td>45,10 m²</td>
-                <td class="price-cell" data-col="cena-m2"><span>8 200,00 zł</span></td>
-                <td class="price-cell" data-col="cena-lokal"><span>369 820,00 zł</span></td>
-                <td class="price-cell" data-col="cena-mp"><span>15 000,00 zł</span></td>
-                <td class="price-cell" data-col="cena-calosc"><span>384 820,00 zł</span></td>
+                <td class="price-cell" data-col="cena-m2">
+                  <span>8 200,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-lokal">
+                  <span>369 820,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-mp">
+                  <span>15 000,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-calosc">
+                  <span>384 820,00 zł</span>
+                </td>
                 <td><span class="status-badge status-wolne">Wolne</span></td>
-                </tr>
-                <tr data-apt-id="A3">
+              </tr>
+              <tr data-apt-id="A3">
                 <td>A3</td>
                 <td>84,33 m²</td>
-                <td class="price-cell" data-col="cena-m2"><span>7 800,00 zł</span></td>
-                <td class="price-cell" data-col="cena-lokal"><span>657 774,00 zł</span></td>
-                <td class="price-cell" data-col="cena-mp"><span>20 000,00 zł</span></td>
-                <td class="price-cell" data-col="cena-calosc"><span>677 774,00 zł</span></td>
+                <td class="price-cell" data-col="cena-m2">
+                  <span>7 800,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-lokal">
+                  <span>657 774,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-mp">
+                  <span>20 000,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-calosc">
+                  <span>677 774,00 zł</span>
+                </td>
                 <td><span class="status-badge status-wolne">Wolne</span></td>
-                </tr>
-                <tr data-apt-id="A4">
+              </tr>
+              <tr data-apt-id="A4">
                 <td>A4</td>
                 <td>55,20 m²</td>
-                <td class="price-cell" data-col="cena-m2"><span>8 150,00 zł</span></td>
-                <td class="price-cell" data-col="cena-lokal"><span>449 880,00 zł</span></td>
-                <td class="price-cell" data-col="cena-mp"><span>15 000,00 zł</span></td>
-                <td class="price-cell" data-col="cena-calosc"><span>464 880,00 zł</span></td>
+                <td class="price-cell" data-col="cena-m2">
+                  <span>8 150,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-lokal">
+                  <span>449 880,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-mp">
+                  <span>15 000,00 zł</span>
+                </td>
+                <td class="price-cell" data-col="cena-calosc">
+                  <span>464 880,00 zł</span>
+                </td>
                 <td><span class="status-badge status-wolne">Wolne</span></td>
-                </tr>
+              </tr>
             </tbody>
-            </table>
-            <pre id="log" class="code-log" aria-live="polite"></pre>
+          </table>
+          <pre id="log" class="code-log" aria-live="polite"></pre>
+          <p class="demo-description">
+            Nasz system waliduje dane, archiwizuje historię (jak w
+            podpowiedziach <span style="cursor: help">ⓘ</span>) i automatycznie
+            raportuje zmiany do rządowego systemu, co widać w logu powyżej.
+          </p>
         </div>
-    </section>
+      </section>
 
-    <section class="content-section" aria-labelledby="offer">
-      <h2 id="offer">Kluczowe korzyści naszego rozwiązania</h2>
-      <p class="badge-highlight">CENY JUŻ OD 1900 ZŁ NETTO, w tym darmowy audyt.</p>
+      <section class="content-section" aria-labelledby="offer">
+        <h2 id="offer">Kluczowe korzyści naszego rozwiązania</h2>
+        <p class="badge-highlight">
+          CENY JUŻ OD 1900 ZŁ NETTO, w tym darmowy audyt.
+        </p>
 
-      <ul class="benefits-list">
-        <li>
-          <div class="benefit-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <span>gwarantuje pełne dostosowanie do wymogów ustawy,</span>
-        </li>
-        <li>
-          <div class="benefit-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <span>minimalizuje czas i pracę po stronie klienta,</span>
-        </li>
-        <li>
-          <div class="benefit-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <span>eliminuje ryzyko błędów i opóźnień w raportowaniu,</span>
-        </li>
-        <li>
-          <div class="benefit-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <span>integruje się z dowolnym systemem sprzedaży lub CRM dewelopera,</span>
-        </li>
-        <li>
-          <div class="benefit-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <span>udostępnia historię cen do eksportu na wypadek kontroli urzędowej.</span>
-        </li>
-      </ul>
-      <p>Dzięki naszemu rozwiązaniu, po jednorazowej konfiguracji, raporty przesyłane są automatycznie, bez potrzeby każdorazowej ingerencji pracowników.</p>
-      <a href="#contact" class="button-like">Uzyskaj darmowy audyt</a>
-    </section>
+        <ul class="benefits-list">
+          <li>
+            <div class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span>gwarantuje pełne dostosowanie do wymogów ustawy,</span>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span>minimalizuje czas i pracę po stronie klienta,</span>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span>eliminuje ryzyko błędów i opóźnień w raportowaniu,</span>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span
+              >integruje się z dowolnym systemem sprzedaży lub CRM
+              dewelopera,</span
+            >
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span
+              >udostępnia historię cen do eksportu na wypadek kontroli
+              urzędowej.</span
+            >
+          </li>
+        </ul>
+        <p>
+          Dzięki naszemu rozwiązaniu, po jednorazowej konfiguracji, raporty
+          przesyłane są automatycznie, bez potrzeby każdorazowej ingerencji
+          pracowników.
+        </p>
+        <a href="#contact" class="button-like">Uzyskaj darmowy audyt</a>
+      </section>
 
-    <section class="content-section faq-section">
-      <h2>Często zadawane pytania (FAQ)</h2>
-      <div class="faq-container">
-        <details>
-          <summary>Czy wasze rozwiązanie działa z każdym systemem CRM?</summary>
-          <div class="faq-content">
-            <p>Tak. Nasz system jest zaprojektowany z myślą o uniwersalności. Integrujemy się z dowolnym systemem CRM lub sprzedaży, który posiada API lub umożliwia eksport danych, co obejmuje większość nowoczesnych platform na rynku.</p>
+      <section class="content-section faq-section">
+        <h2>Często zadawane pytania (FAQ)</h2>
+        <div class="faq-container">
+          <details>
+            <summary>
+              Czy wasze rozwiązanie działa z każdym systemem CRM?
+            </summary>
+            <div class="faq-content">
+              <p>
+                Tak. Nasz system jest zaprojektowany z myślą o uniwersalności.
+                Integrujemy się z dowolnym systemem CRM lub sprzedaży, który
+                posiada API lub umożliwia eksport danych, co obejmuje większość
+                nowoczesnych platform na rynku.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>Ile trwa wdrożenie i co jest wymagane od klienta?</summary>
+            <div class="faq-content">
+              <p>
+                Standardowe wdrożenie trwa od 3 do 7 dni roboczych. Po stronie
+                klienta wymagana jest jedynie jednorazowa współpraca w celu
+                udostępnienia dostępu do danych. Po konfiguracji system działa w
+                pełni autonomicznie.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>Jakie są koszty utrzymania?</summary>
+            <div class="faq-content">
+              <p>
+                Oferujemy prosty model abonamentowy bez ukrytych opłat. Koszt
+                obejmuje pełne wsparcie techniczne, utrzymanie serwerów oraz
+                gwarancję aktualizacji systemu w przypadku przyszłych zmian w
+                wymogach prawnych.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>Czy przechowywane dane są bezpieczne?</summary>
+            <div class="faq-content">
+              <p>
+                Bezpieczeństwo jest naszym priorytetem. Wszystkie dane są
+                szyfrowane zarówno podczas przesyłania (in-transit), jak i
+                przechowywania (at-rest). Korzystamy z serwerów zlokalizowanych
+                na terenie Unii Europejskiej, w pełni zgodnych z RODO.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="card" id="contact" aria-labelledby="contact">
+        <h2 id="contact-title">Skontaktuj się z nami!</h2>
+        <form
+          id="contact-form"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          novalidate
+        >
+          <input
+            type="text"
+            name="_gotcha"
+            class="hp"
+            autocomplete="off"
+            tabindex="-1"
+            aria-hidden="true"
+          />
+          <div class="grid">
+            <label
+              ><span>Imię i nazwisko</span><input name="name" required /></label
+            ><label
+              ><span>Email</span><input type="email" name="email" required
+            /></label>
           </div>
-        </details>
-        <details>
-          <summary>Ile trwa wdrożenie i co jest wymagane od klienta?</summary>
-          <div class="faq-content">
-            <p>Standardowe wdrożenie trwa od 3 do 7 dni roboczych. Po stronie klienta wymagana jest jedynie jednorazowa współpraca w celu udostępnienia dostępu do danych. Po konfiguracji system działa w pełni autonomicznie.</p>
-          </div>
-        </details>
-        <details>
-          <summary>Jakie są koszty utrzymania?</summary>
-          <div class="faq-content">
-            <p>Oferujemy prosty model abonamentowy bez ukrytych opłat. Koszt obejmuje pełne wsparcie techniczne, utrzymanie serwerów oraz gwarancję aktualizacji systemu w przypadku przyszłych zmian w wymogach prawnych.</p>
-          </div>
-        </details>
-        <details>
-          <summary>Czy przechowywane dane są bezpieczne?</summary>
-          <div class="faq-content">
-            <p>Bezpieczeństwo jest naszym priorytetem. Wszystkie dane są szyfrowane zarówno podczas przesyłania (in-transit), jak i przechowywania (at-rest). Korzystamy z serwerów zlokalizowanych na terenie Unii Europejskiej, w pełni zgodnych z RODO.</p>
-          </div>
-        </details>
+          <label
+            ><span>Adres inwestycji / nieruchomości</span
+            ><input name="property_address"
+          /></label>
+          <label
+            ><span>NIP / ID podatkowe (opcjonalnie)</span><input name="tax_id"
+          /></label>
+          <label
+            ><span>Wiadomość</span
+            ><textarea name="message" rows="5" required></textarea>
+          </label>
+          <label class="check"
+            ><input type="checkbox" name="consent" required /><span
+              >Wyrażam zgodę na przetwarzanie danych w celu odpowiedzi na
+              zapytanie.</span
+            ></label
+          >
+          <button type="submit">Wyślij</button>
+          <p id="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="wrap small">
+      <p>
+        ©
+        <button id="cyberpunk-toggle" class="easter-egg">2025</button>
+        InfoDevelopment. Wszelkie prawa zastrzeżone.
+      </p>
+      <div class="footer-links">
+        <a href="mailto:brunon.socha@gmail.com">Napisz</a> •
+        <a href="tel:668830062">Zadzwoń</a> •
+        <a href="src/pages/imprint.html">Imprint</a> •
+        <a href="src/pages/privacy.html">Polityka prywatności</a>
       </div>
-    </section>
+    </footer>
 
-    <section class="card" id="contact" aria-labelledby="contact">
-      <h2 id="contact-title">Skontaktuj się z nami!</h2>
-      <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-        <input type="text" name="_gotcha" class="hp" autocomplete="off" tabindex="-1" aria-hidden="true">
-        <div class="grid"><label><span>Imię i nazwisko</span><input name="name" required /></label><label><span>Email</span><input type="email" name="email" required /></label></div>
-        <label><span>Adres inwestycji / nieruchomości</span><input name="property_address" /></label>
-        <label><span>NIP / ID podatkowe (opcjonalnie)</span><input name="tax_id" /></label>
-        <label><span>Wiadomość</span><textarea name="message" rows="5" required></textarea></label>
-        <label class="check"><input type="checkbox" name="consent" required /><span>Wyrażam zgodę na przetwarzanie danych w celu odpowiedzi na zapytanie.</span></label>
-        <button type="submit">Wyślij</button>
-        <p id="status" role="status" aria-live="polite"></p>
-      </form>
-    </section>
-  </main>
-
-  <footer class="wrap small">
-    <p>© <button id="cyberpunk-toggle" class="easter-egg">2025</button> InfoDevelopment. Wszelkie prawa zastrzeżone.</p>
-    <div class="footer-links">
-      <a href="mailto:brunon.socha@gmail.com">Napisz</a> •
-      <a href="tel:668830062">Zadzwoń</a> •
-      <a href="src/pages/imprint.html">Imprint</a> •
-      <a href="src/pages/privacy.html">Polityka prywatności</a>
-    </div>
-  </footer>
-
-  <script src="src/js/script.js" defer></script>
-
-</body>
+    <script src="src/js/script.js" defer></script>
+  </body>
 </html>
