@@ -156,31 +156,34 @@ function initPageTransitions() {
   });
 }
 
-const mockPriceData = {
-  "A1": {
-    "cena-calosc": [
-      { date: "2025-10-18", price: 536600 },
-      { date: "2025-10-10", price: 539000 },
-      { date: "2025-09-25", price: 530000 },
-    ]
-  },
-  "A2": {
-    "cena-calosc": [
-      { date: "2025-10-15", price: 384820 }
-    ]
-  },
-  "A3": {
-    "cena-calosc": [
-      { date: "2025-09-30", price: 677774 }
-    ]
-  },
-  "A4": {
-    "cena-calosc": [
-      { date: "2025-10-17", price: 464880 },
-      { date: "2025-10-05", price: 470000 },
-    ]
-  }
+const apartmentData = {
+  "A1": { area: 65.20, parking: 15000, pricePerSqMHistory: [{ date: "2025-10-18", price: 8000 }, { date: "2025-10-10", price: 8266 }, { date: "2025-09-25", price: 8130 }] },
+  "A2": { area: 45.10, parking: 15000, pricePerSqMHistory: [{ date: "2025-10-15", price: 8200 }] },
+  "A3": { area: 84.33, parking: 20000, pricePerSqMHistory: [{ date: "2025-09-30", price: 7800 }] },
+  "A4": { area: 55.20, parking: 15000, pricePerSqMHistory: [{ date: "2025-10-17", price: 8150 }, { date: "2025-10-05", price: 8242 }] }
 };
+
+function formatPrice(price, isEnglish) {
+    return `${price.toLocaleString(isEnglish ? 'en-US' : 'pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${isEnglish ? 'PLN' : 'zł'}`;
+}
+
+function updateRowPrices(aptId, isEnglish) {
+    const data = apartmentData[aptId];
+    if (!data) return;
+
+    const latestPricePerSqM = data.pricePerSqMHistory[0].price;
+    const apartmentPrice = latestPricePerSqM * data.area;
+    const totalPrice = apartmentPrice + data.parking;
+
+    const row = document.querySelector(`tr[data-apt-id="${aptId}"]`);
+    if (!row) return;
+
+    row.querySelector('[data-col="cena-m2"] span').textContent = formatPrice(latestPricePerSqM, isEnglish);
+    row.querySelector('[data-col="cena-lokal"] span').textContent = formatPrice(apartmentPrice, isEnglish);
+    row.querySelector('[data-col="cena-mp"] span').textContent = formatPrice(data.parking, isEnglish);
+    row.querySelector('[data-col="cena-calosc"] span').textContent = formatPrice(totalPrice, isEnglish);
+}
+
 
 function initPriceTooltips() {
   const tooltip = document.getElementById('price-tooltip');
@@ -191,20 +194,22 @@ function initPriceTooltips() {
   document.querySelectorAll('.price-cell').forEach(cell => {
     cell.addEventListener('mouseenter', (e) => {
       const aptId = e.target.closest('tr').dataset.aptId;
-      const colId = e.target.dataset.col;
-      const history = (mockPriceData[aptId] && mockPriceData[aptId][colId]) ||
-                      (mockPriceData[aptId] && mockPriceData[aptId]['cena-calosc']);
+      const data = apartmentData[aptId];
+      if (!data || data.pricePerSqMHistory.length === 0) return;
 
-      if (!history || history.length === 0) return;
+      const fullHistory = data.pricePerSqMHistory.map(h => ({
+          date: h.date,
+          totalPrice: (h.price * data.area) + data.parking
+      }));
 
-      const prices = history.map(h => h.price);
+      const prices = fullHistory.map(h => h.totalPrice);
       const lowestPrice = Math.min(...prices);
 
-      let historyHtml = history.map(item => `
+      let historyHtml = fullHistory.map(item => `
         <li>
           <span>${item.date}</span>
-          <span class="${item.price === lowestPrice ? 'lowest-price' : ''}">
-            ${item.price.toLocaleString(isEnglish ? 'en-US' : 'pl-PL')} ${isEnglish ? 'PLN' : 'zł'}
+          <span class="${item.totalPrice === lowestPrice ? 'lowest-price' : ''}">
+            ${formatPrice(item.totalPrice, isEnglish)}
           </span>
         </li>
       `).join('');
@@ -214,7 +219,7 @@ function initPriceTooltips() {
         <ul>${historyHtml}</ul>
         <div class="lowest-price" style="margin-top: 8px; font-size: 12px;">
           ${isEnglish ? 'Lowest price (30 days):' : 'Najniższa cena (30 dni):'}
-          ${lowestPrice.toLocaleString(isEnglish ? 'en-US' : 'pl-PL')} ${isEnglish ? 'PLN' : 'zł'}
+          ${formatPrice(lowestPrice, isEnglish)}
         </div>
       `;
       tooltip.style.display = 'block';
@@ -245,6 +250,8 @@ function initAnimations() {
   let typingInProgress = false;
   const typingSpeed = 15;
 
+  Object.keys(apartmentData).forEach(aptId => updateRowPrices(aptId, isEnglish));
+
   const initialLogs = isEnglish ? [
     { class: 'log-info', text: '[info] InfoDevelopment pipeline initializing...' },
     { class: 'log-ok', text: '[ok] Connected to dane.gov.pl endpoint.' },
@@ -261,7 +268,6 @@ function initAnimations() {
       if (callback) callback();
       return;
     }
-
     let i = 0;
     typingInProgress = true;
     function step() {
@@ -280,28 +286,22 @@ function initAnimations() {
 
   function addLog(logEntry) {
     if (!logEl) return;
-
     if (typingInProgress) {
-        setTimeout(() => addLog(logEntry), typingSpeed * 5);
-        return;
+      setTimeout(() => addLog(logEntry), typingSpeed * 5);
+      return;
     }
-
     const span = document.createElement('span');
     span.className = logEntry.class;
     logEl.appendChild(span);
     logLinesCount++;
-
     while (logLinesCount > maxLogLines) {
       if (logEl.firstChild) {
-         logEl.removeChild(logEl.firstChild);
-         logLinesCount--;
-      } else {
-         break;
-      }
+        logEl.removeChild(logEl.firstChild);
+        logLinesCount--;
+      } else { break; }
     }
-
     typeLine(span, logEntry.text, () => {
-        logEl.scrollTop = logEl.scrollHeight;
+      // Intentionally left blank
     });
   }
 
@@ -316,43 +316,53 @@ function initAnimations() {
   }
 
   function simulatePriceChange() {
-    const availableApts = ['A1', 'A4'];
+    const availableApts = ['A1', 'A2', 'A3', 'A4'];
     const aptId = availableApts[Math.floor(Math.random() * availableApts.length)];
+    const data = apartmentData[aptId];
     const row = table.querySelector(`tr[data-apt-id="${aptId}"]`);
-    if (!row) return;
+    if (!row || !data) return;
+
+    let newPricePerSqM;
+    const latestHistory = data.pricePerSqMHistory[0];
+    const changePercent = (Math.random() * 0.05) - 0.02;
+
+    if (Math.random() > 0.5) {
+      newPricePerSqM = latestHistory.price * (1 + changePercent);
+    } else {
+      const currentTotalPrice = (latestHistory.price * data.area) + data.parking;
+      const newTotalPrice = currentTotalPrice * (1 + changePercent);
+      newPricePerSqM = (newTotalPrice - data.parking) / data.area;
+    }
+
+    newPricePerSqM = Math.round(newPricePerSqM);
+    if (newPricePerSqM === latestHistory.price) {
+        return;
+    }
+
+    const newDate = new Date().toISOString().split('T')[0];
+    data.pricePerSqMHistory.unshift({ date: newDate, price: newPricePerSqM });
+
+    updateRowPrices(aptId, isEnglish);
 
     const cell = row.querySelector('[data-col="cena-calosc"]');
-    const history = mockPriceData[aptId]['cena-calosc'];
-    if (!history || history.length === 0) return;
-    const currentPrice = history[0].price;
-
-    const changePercent = (Math.random() * 0.05) - 0.02;
-    let newPrice = Math.round(currentPrice * (1 + changePercent));
-    newPrice = Math.round(newPrice / 100) * 100;
-
-    if (newPrice === currentPrice) return;
-
-    const flashClass = newPrice > currentPrice ? 'price-flash-up' : 'price-flash-down';
-    const newPriceString = `${newPrice.toLocaleString(isEnglish ? 'en-US' : 'pl-PL')} ${isEnglish ? 'PLN' : 'zł'}`;
-
-    cell.textContent = newPriceString;
+    const flashClass = newPricePerSqM > latestHistory.price ? 'price-flash-up' : 'price-flash-down';
     cell.classList.remove('price-flash-up', 'price-flash-down');
     void cell.offsetWidth;
     cell.classList.add(flashClass);
 
-    const newDate = new Date().toISOString().split('T')[0];
-    history.unshift({ date: newDate, price: newPrice });
-
     addLog({
       class: 'log-change',
-      text: `[${isEnglish ? 'PRICE_UPDATE' : 'ZMIANA_CENY'}] Apt ${aptId}: ${newPriceString}`
+      text: `[${isEnglish ? 'PRICE_UPDATE' : 'ZMIANA_CENY'}] Apt ${aptId}: ${formatPrice(newPricePerSqM, isEnglish)}/m²`
     });
+
+    addLog({
+        class: 'log-info',
+        text: `[info] ${isEnglish ? 'New price archived. Submitting update...' : 'Nowa cena zarchiwizowana. Wysyłanie aktualizacji...'}`
+    });
+
     setTimeout(() => {
-        addLog({
-          class: 'log-info',
-          text: `[info] ${isEnglish ? 'New price archived. Submitting update...' : 'Nowa cena zarchiwizowana. Wysyłanie aktualizacji...'}`
-        });
-    }, 50);
+        if(logEl) logEl.scrollTop = logEl.scrollHeight;
+    }, (typingSpeed * 60));
 
   }
 
