@@ -538,10 +538,7 @@ html.dark .status-badge.status-rezerwacja {
   background-color: color-mix(in oklab, var(--c-highlight) 15%, transparent);
   color: var(--c-highlight);
 }
-.table-btn {
-  text-decoration: none;
-  font-weight: 600;
-}
+
 
 .price-cell {
   position: relative;
@@ -643,7 +640,7 @@ html.dark .status-badge.status-rezerwacja {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
   position: relative;
 }
-}
+
 html.mono .code-log {
   background-color: var(--c-dark-bg);
   border-color: color-mix(in oklab, var(--c-white) 15%, transparent);

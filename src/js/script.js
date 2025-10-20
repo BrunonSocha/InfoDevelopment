@@ -133,7 +133,7 @@ function initThemeSwitcher() {
       const currentIndex = themes.indexOf(currentTheme);
       const nextIndex = (currentIndex + 1) % themes.length;
       const newTheme = themes[nextIndex];
-      
+
       document.documentElement.className = newTheme;
       localStorage.setItem('theme', newTheme);
     });
@@ -141,20 +141,25 @@ function initThemeSwitcher() {
 }
 
 function initPageTransitions() {
-  document.querySelectorAll('.lang-switcher a, .footer-links a, a.button-like').forEach(link => {
+  document.querySelectorAll('.lang-switcher a, .footer-links a, a.button-like.portfolio-btn, a.button-like[href$=".html"]').forEach(link => {
+    const href = link.href;
+    if (!href || !href.endsWith('.html')) {
+        return;
+    }
+
     link.addEventListener('click', e => {
-      const href = link.href;
+      const currentHref = link.href;
 
       if (link.classList.contains('lang-active')) {
         e.preventDefault();
         return;
       }
 
-      if (href.endsWith('.html')) {
+      if (currentHref.endsWith('.html')) {
         e.preventDefault();
         document.body.classList.add('fade-out');
         setTimeout(() => {
-          window.location.href = href;
+          window.location.href = currentHref;
         }, 300);
       }
     });
@@ -196,36 +201,76 @@ function initPriceTooltips() {
 
   const isEnglish = document.documentElement.lang === 'en';
 
+  function getPriceHistory(aptId, colId) {
+    const data = apartmentData[aptId];
+    if (!data) return [];
+
+    switch (colId) {
+      case 'cena-m2':
+        return data.pricePerSqMHistory;
+      case 'cena-lokal':
+        return data.pricePerSqMHistory.map(h => ({
+          date: h.date,
+          price: h.price * data.area
+        }));
+      case 'cena-mp':
+        return [{ date: 'current', price: data.parking }];
+      case 'cena-calosc':
+        return data.pricePerSqMHistory.map(h => ({
+          date: h.date,
+          price: (h.price * data.area) + data.parking
+        }));
+      default:
+        return [];
+    }
+  }
+
+  function getTooltipTitle(colId) {
+      switch(colId) {
+          case 'cena-m2': return isEnglish ? 'Price per m² History' : 'Historia Ceny za m²';
+          case 'cena-lokal': return isEnglish ? 'Apartment Price History' : 'Historia Ceny za lokal';
+          case 'cena-mp': return isEnglish ? 'Parking Space Price' : 'Cena Miejsca postojowego';
+          case 'cena-calosc': return isEnglish ? 'Total Price History' : 'Historia Ceny za całość';
+          default: return isEnglish ? 'Price History' : 'Historia Ceny';
+      }
+  }
+
   document.querySelectorAll('.price-cell').forEach(cell => {
     cell.addEventListener('mouseenter', (e) => {
       const aptId = e.target.closest('tr').dataset.aptId;
-      const data = apartmentData[aptId];
-      if (!data || data.pricePerSqMHistory.length === 0) return;
+      const colId = e.target.dataset.col;
+      const history = getPriceHistory(aptId, colId);
 
-      const fullHistory = data.pricePerSqMHistory.map(h => ({
-          date: h.date,
-          totalPrice: (h.price * data.area) + data.parking
-      }));
+      if (!history || history.length === 0) return;
 
-      const prices = fullHistory.map(h => h.totalPrice);
+      const title = getTooltipTitle(colId);
+      const prices = history.map(h => h.price);
       const lowestPrice = Math.min(...prices);
 
-      let historyHtml = fullHistory.map(item => `
+      let historyHtml = history.map(item => `
         <li>
-          <span>${item.date}</span>
-          <span class="${item.totalPrice === lowestPrice ? 'lowest-price' : ''}">
-            ${formatPrice(item.totalPrice, isEnglish)}
+          <span>${item.date === 'current' ? (isEnglish ? 'Current' : 'Aktualna') : item.date}</span>
+          <span class="${history.length > 1 && item.price === lowestPrice ? 'lowest-price' : ''}">
+            ${formatPrice(item.price, isEnglish)}
           </span>
         </li>
       `).join('');
 
+      let lowestPriceHtml = '';
+      if (history.length > 1) {
+          lowestPriceHtml = `
+          <div class="lowest-price" style="margin-top: 8px; font-size: 12px;">
+            ${isEnglish ? 'Lowest price (30 days):' : 'Najniższa cena (30 dni):'}
+            ${formatPrice(lowestPrice, isEnglish)}
+          </div>`;
+      } else if (colId === 'cena-mp') {
+          lowestPriceHtml = `<div style="margin-top: 8px; font-size: 12px;">${isEnglish ? 'Current Price' : 'Aktualna Cena'}</div>`;
+      }
+
       tooltip.innerHTML = `
-        <h4>${isEnglish ? 'Price History' : 'Historia Ceny'}</h4>
+        <h4>${title}</h4>
         <ul>${historyHtml}</ul>
-        <div class="lowest-price" style="margin-top: 8px; font-size: 12px;">
-          ${isEnglish ? 'Lowest price (30 days):' : 'Najniższa cena (30 dni):'}
-          ${formatPrice(lowestPrice, isEnglish)}
-        </div>
+        ${lowestPriceHtml}
       `;
       tooltip.style.display = 'block';
     });
@@ -252,7 +297,8 @@ function initAnimations() {
   let logLinesCount = 0;
   const maxLogLines = 10;
   let simulationInterval;
-  let typingInProgress = false;
+  let isTyping = false;
+  let isSimulationRunning = false;
   const typingSpeed = 15;
 
   Object.keys(apartmentData).forEach(aptId => updateRowPrices(aptId, isEnglish));
@@ -267,50 +313,63 @@ function initAnimations() {
     { class: 'log-info', text: '[info] Obserwowanie 4 mieszkań pod kątem zmian cen...' }
   ];
 
-  function typeLine(spanElement, fullText, callback) {
-    if (prefersReduced || !fullText) {
-      spanElement.textContent = fullText;
-      if (callback) callback();
-      return;
-    }
-    let i = 0;
-    typingInProgress = true;
-    function step() {
-      if (i < fullText.length) {
-        spanElement.textContent = fullText.substring(0, i + 1) + '▌';
-        i++;
-        setTimeout(step, typingSpeed);
-      } else {
+  function typeLine(spanElement, fullText) {
+    return new Promise(resolve => {
+      if (prefersReduced || !fullText) {
         spanElement.textContent = fullText;
-        typingInProgress = false;
-        if (callback) callback();
+        resolve();
+        return;
       }
-    }
-    step();
+      let i = 0;
+      isTyping = true;
+      function step() {
+        if (i < fullText.length) {
+          spanElement.textContent = fullText.substring(0, i + 1) + '▌';
+          i++;
+          setTimeout(step, typingSpeed);
+        } else {
+          spanElement.textContent = fullText;
+          isTyping = false;
+          resolve();
+        }
+      }
+      step();
+    });
   }
 
-  function addLog(logEntry) {
+  async function addLog(logEntry) {
     if (!logEl) return;
-    if (typingInProgress) {
-      setTimeout(() => addLog(logEntry), typingSpeed * 5);
-      return;
+
+    while (isTyping) {
+      await delay(typingSpeed * 2);
     }
+
     const span = document.createElement('span');
     span.className = logEntry.class;
-    logEl.appendChild(span);
-    logLinesCount++;
-    while (logLinesCount > maxLogLines) {
+
+    while (logLinesCount >= maxLogLines) {
       if (logEl.firstChild) {
         logEl.removeChild(logEl.firstChild);
         logLinesCount--;
       } else { break; }
     }
-    typeLine(span, logEntry.text, () => {
-      // Intentionally left blank
-    });
+
+    logEl.appendChild(span);
+    logLinesCount++;
+    logEl.scrollTop = logEl.scrollHeight;
+
+    await typeLine(span, logEntry.text);
   }
 
-  initialLogs.forEach(addLog);
+  async function runInitialLogs() {
+     isSimulationRunning = true;
+     for (const log of initialLogs) {
+       await addLog(log);
+     }
+     isSimulationRunning = false;
+  }
+
+  runInitialLogs();
 
   if (prefersReduced) {
     addLog({
@@ -320,12 +379,18 @@ function initAnimations() {
     return;
   }
 
-  function simulatePriceChange() {
+  async function simulatePriceChange() {
+    if (isSimulationRunning || isTyping) return;
+    isSimulationRunning = true;
+
     const availableApts = ['A1', 'A2', 'A3', 'A4'];
     const aptId = availableApts[Math.floor(Math.random() * availableApts.length)];
     const data = apartmentData[aptId];
     const row = table.querySelector(`tr[data-apt-id="${aptId}"]`);
-    if (!row || !data) return;
+    if (!row || !data) {
+        isSimulationRunning = false;
+        return;
+    }
 
     let newPricePerSqM;
     const latestHistory = data.pricePerSqMHistory[0];
@@ -339,8 +404,10 @@ function initAnimations() {
       newPricePerSqM = (newTotalPrice - data.parking) / data.area;
     }
 
-    newPricePerSqM = Math.round(newPricePerSqM);
-    if (newPricePerSqM === latestHistory.price) {
+    newPricePerSqM = Math.round(newPricePerSqM / 200) * 200;
+
+    if (newPricePerSqM === latestHistory.price || newPricePerSqM <= 0) {
+        isSimulationRunning = false;
         return;
     }
 
@@ -355,23 +422,27 @@ function initAnimations() {
     void cell.offsetWidth;
     cell.classList.add(flashClass);
 
-    addLog({
+    await addLog({
       class: 'log-change',
       text: `[${isEnglish ? 'PRICE_UPDATE' : 'ZMIANA_CENY'}] Apt ${aptId}: ${formatPrice(newPricePerSqM, isEnglish)}/m²`
     });
 
-    addLog({
+    await addLog({
         class: 'log-info',
         text: `[info] ${isEnglish ? 'New price archived. Submitting update...' : 'Nowa cena zarchiwizowana. Wysyłanie aktualizacji...'}`
     });
 
-    setTimeout(() => {
-        if(logEl) logEl.scrollTop = logEl.scrollHeight;
-    }, (typingSpeed * 60));
+    await addLog({
+        class: 'log-ok',
+        text: `[send] ${isEnglish ? 'Sending report to dane.gov.pl...' : 'Wysyłanie raportu do dane.gov.pl...'}`
+    });
 
+    isSimulationRunning = false;
   }
 
-  simulationInterval = setInterval(simulatePriceChange, 4500);
+  const simulationIntervalTime = 3500;
+
+  simulationInterval = setInterval(simulatePriceChange, simulationIntervalTime);
 
   new IntersectionObserver((entries, obs) => {
     entries.forEach(e => {
@@ -379,7 +450,7 @@ function initAnimations() {
         clearInterval(simulationInterval);
         simulationInterval = null;
       } else if (e.isIntersecting && !simulationInterval && !prefersReduced) {
-         simulationInterval = setInterval(simulatePriceChange, 4500);
+         simulationInterval = setInterval(simulatePriceChange, simulationIntervalTime);
       }
     });
   }, { threshold: 0.1 }).observe(table);

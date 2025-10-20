@@ -14,4 +14,4 @@
 - [x] Rewizja ogolna palety barw (Alternatywne palety wprowadzone)
 - [ ] Dodac komentarze do CSS oraz JS, zeby wiadomo bylo co jest czym
 - [ ] Optymalizacja SEO
-- [ ] Wersja z interaktywna tabelką (jesli bedzie taka prosba/wystarczy czasu na demo)
+- [x] Wersja z interaktywna tabelką (jesli bedzie taka prosba/wystarczy czasu na demo)
