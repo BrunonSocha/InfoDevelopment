@@ -106,15 +106,17 @@
 
     <section class="content-section how-it-works-demo">
         <h2>How it works?</h2>
+        <p class="demo-intro-text">
+            Below is a simulation of our system in action. Observe how we automatically track price changes, archive history, and prepare data for reporting.
+        </p>
         <div class="showcase-container">
             <table id="data-table" class="product-table">
             <thead>
                 <tr>
                 <th>Apartment</th>
                 <th>Area</th>
-                <th>Garden</th>
                 <th>Price per m²</th>
-                <th>Base Price</th>
+                <th>Apartment Price</th>
                 <th>Parking</th>
                 <th>Total Price</th>
                 <th>Status</th>
@@ -124,9 +126,8 @@
                 <tr data-apt-id="A1">
                 <td>A1</td>
                 <td>65.20 m²</td>
-                <td>12.5 m²</td>
                 <td class="price-cell" data-col="cena-m2"><span>8,000.00 PLN</span></td>
-                <td class="price-cell" data-col="cena-iloczyn"><span>521,600.00 PLN</span></td>
+                <td class="price-cell" data-col="cena-lokal"><span>521,600.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-mp"><span>15,000.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-calosc"><span>536,600.00 PLN</span></td>
                 <td><span class="status-badge status-wolne">Available</span></td>
@@ -134,29 +135,26 @@
                 <tr data-apt-id="A2">
                 <td>A2</td>
                 <td>45.10 m²</td>
-                <td>---</td>
                 <td class="price-cell" data-col="cena-m2"><span>8,200.00 PLN</span></td>
-                <td class="price-cell" data-col="cena-iloczyn"><span>369,820.00 PLN</span></td>
+                <td class="price-cell" data-col="cena-lokal"><span>369,820.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-mp"><span>15,000.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-calosc"><span>384,820.00 PLN</span></td>
-                <td><span class="status-badge status-rezerwacja">Reserved</span></td>
+                <td><span class="status-badge status-wolne">Available</span></td>
                 </tr>
                 <tr data-apt-id="A3">
                 <td>A3</td>
                 <td>84.33 m²</td>
-                <td>25.0 m²</td>
                 <td class="price-cell" data-col="cena-m2"><span>7,800.00 PLN</span></td>
-                <td class="price-cell" data-col="cena-iloczyn"><span>657,774.00 PLN</span></td>
+                <td class="price-cell" data-col="cena-lokal"><span>657,774.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-mp"><span>20,000.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-calosc"><span>677,774.00 PLN</span></td>
-                <td><span class="status-badge status-sprzedane">Sold</span></td>
+                <td><span class="status-badge status-wolne">Available</span></td>
                 </tr>
                 <tr data-apt-id="A4">
                 <td>A4</td>
                 <td>55.20 m²</td>
-                <td>---</td>
                 <td class="price-cell" data-col="cena-m2"><span>8,150.00 PLN</span></td>
-                <td class="price-cell" data-col="cena-iloczyn"><span>449,880.00 PLN</span></td>
+                <td class="price-cell" data-col="cena-lokal"><span>449,880.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-mp"><span>15,000.00 PLN</span></td>
                 <td class="price-cell" data-col="cena-calosc"><span>464,880.00 PLN</span></td>
                 <td><span class="status-badge status-wolne">Available</span></td>
@@ -164,6 +162,7 @@
             </tbody>
             </table>
             <pre id="log" class="code-log" aria-live="polite"></pre>
+            <a href="https://dane.infodevelopment.pl/" class="button-like demo-button" target="_blank" rel="noopener noreferrer">Try it out</a>
         </div>
     </section>
 
@@ -263,6 +262,6 @@
   </footer>
 
   <script src="src/js/script.js" defer></script>
-  
+
 </body>
 </html>

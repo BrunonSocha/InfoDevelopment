@@ -629,8 +629,9 @@ html.dark .status-badge.status-rezerwacja {
   width: 100%;
   max-width: 100%;
   margin-top: 32px;
+  margin-bottom: 32px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  height: 240px;
+  height: calc(10 * 1.45em + 28px);
   white-space: pre-wrap;
   background-color: var(--line);
   border: 1px solid color-mix(in oklab, var(--fg) 10%, transparent);
@@ -641,6 +642,7 @@ html.dark .status-badge.status-rezerwacja {
   color: var(--accent);
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
   position: relative;
+}
 }
 html.mono .code-log {
   background-color: var(--c-dark-bg);
@@ -863,4 +865,17 @@ body.fade-out {
   display: block;
   text-decoration: none;
   line-height: 0;
+}
+
+.demo-intro-text {
+  max-width: 600px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 16px auto 0;
+}
+
+.demo-button {
+    margin-top: 32px;
 }
