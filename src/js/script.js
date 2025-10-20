@@ -118,19 +118,24 @@ function initThemeSwitcher() {
   const themeToggleBtn = document.getElementById('theme-toggle');
   const easterEggBtn = document.getElementById('cyberpunk-toggle');
   const themes = ['', 'dark', 'mono', 'ocean', 'forest', 'dusk'];
-  let currentThemeIndex = 0;
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
       document.documentElement.classList.remove('mono', 'ocean', 'forest', 'dusk');
       document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.className);
     });
   }
 
   if (easterEggBtn) {
     easterEggBtn.addEventListener('click', () => {
-      currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-      document.documentElement.className = themes[currentThemeIndex];
+      const currentTheme = localStorage.getItem('theme') || '';
+      const currentIndex = themes.indexOf(currentTheme);
+      const nextIndex = (currentIndex + 1) % themes.length;
+      const newTheme = themes[nextIndex];
+      
+      document.documentElement.className = newTheme;
+      localStorage.setItem('theme', newTheme);
     });
   }
 }

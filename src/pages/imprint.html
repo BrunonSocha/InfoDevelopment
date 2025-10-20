@@ -4,6 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Nota Prawna — InfoDevelopment</title> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme');
+      if (theme) {
+        document.documentElement.className = theme;
+      }
+    })();
+  </script>
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
@@ -14,8 +22,10 @@
   <div class="banner">
     <header class="wrap banner-content">
       <div class="logo-block">
-        <img src="../images/logo1.png" alt="InfoDevelopment logo" class="logo light-logo">
-        <img src="../images/logo2.png" alt="InfoDevelopment logo — dark" class="logo dark-logo">
+        <a href="../../index.html" class="banner-logo-link">
+          <img src="../images/logo1.png" alt="InfoDevelopment logo" class="logo light-logo">
+          <img src="../images/logo2.png" alt="InfoDevelopment logo — dark" class="logo dark-logo">
+        </a>
         <p class="sub">TECHNOLOGIA, KTÓRA RAPORTUJE ZA CIEBIE.</p>
       </div>
       <div class="banner-right">

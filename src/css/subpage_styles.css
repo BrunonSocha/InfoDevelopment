@@ -415,3 +415,9 @@ body.fade-out {
 .text-content ul {
   padding-left: 20px;
 }
+
+.banner-logo-link {
+  display: block;
+  text-decoration: none;
+  line-height: 0;
+}

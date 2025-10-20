@@ -4,7 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>InfoDevelopment — Apartment price reporting automation</title>
-
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme');
+      if (theme) {
+        document.documentElement.className = theme;
+      }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 
@@ -35,8 +42,10 @@
   <div class="banner">
     <header class="wrap banner-content">
       <div class="logo-block">
-        <img src="src/images/logo1.png" alt="InfoDevelopment logo" class="logo light-logo">
-        <img src="src/images/logo2.png" alt="InfoDevelopment logo — dark" class="logo dark-logo">
+        <a href="index-en.html" class="banner-logo-link">
+          <img src="src/images/logo1.png" alt="InfoDevelopment logo" class="logo light-logo">
+          <img src="src/images/logo2.png" alt="InfoDevelopment logo — dark" class="logo dark-logo">
+        </a>
         <p class="sub">TECHNOLOGY THAT REPORTS FOR YOU.</p>
       </div>
       <div class="banner-right">
@@ -254,6 +263,6 @@
   </footer>
 
   <script src="src/js/script.js" defer></script>
-
+  
 </body>
 </html>
