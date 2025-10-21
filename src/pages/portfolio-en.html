@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio — InfoDevelopment</title>
+  <title>Services — InfoDevelopment</title>
   <script>
     (function() {
       const theme = localStorage.getItem('theme');
@@ -19,6 +19,11 @@
   <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/subpage_styles.css" />
+  <style>
+    html {
+      scroll-padding-top: 165px;
+    }
+  </style>
 </head>
 <body>
 
@@ -33,49 +38,116 @@
       </div>
       <div class="banner-right">
         <div class="lang-switcher">
-          <a href="portfolio.html">PL</a>
-          <a href="../../index-en.html" class="lang-active">EN</a>
+          <a href="usługi.html">PL</a>
+          <a href="portfolio-en.html">EN</a>
         </div>
-        <button id="theme-toggle" class="button-like theme-btn">Dark mode</button>
-        <a href="portfolio-en.html" class="button-like theme-btn portfolio-btn">Portfolio</a>
-        <a href="https://dane.infodevelopment.pl/" class="button-like login-btn">Client panel</a>
+        <button id="theme-toggle" class="button-like theme-btn">Dark Mode</button>
+        <a href="portfolio-en.html" class="button-like theme-btn portfolio-btn">Services</a>
+        <a href="https://dane.infodevelopment.pl/" class="button-like login-btn">Client Panel</a>
       </div>
     </header>
   </div>
 
   <main class="wrap">
     <section class="content-section card" id="portfolio-content" aria-labelledby="portfolio-title">
-      <h2 id="portfolio-title">Our Portfolio</h2>
+      <h2 id="portfolio-title">Services</h2>
       <div class="text-content">
-        <h3>Introduction</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <h3>Section 1</h3>
-        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula.</p>
+        <h3>KSeF Integration - Modern Solutions for Businesses</h3>
+        <p>In the era of digitization and the obligation to issue structured invoices through the National e-Invoice System (KSeF), our company offers comprehensive integration solutions that allow entrepreneurs to fully leverage the potential of automating financial processes.</p>
+        <p>We design, implement, and maintain systems integrating any client IT environment with the KSeF platform.</p>
+        <p><strong>We offer:</strong></p>
         <ul>
-            <li>Integration with CRM system</li>
-            <li>Real-time data validation</li>
-            <li>Automated reporting compliant with the act</li>
+          <li>Automatic issuing and sending of invoices to KSeF in XML format compliant with the FA(2) schema,</li>
+          <li>Receiving and validating UPO (Official Receipt Confirmation),</li>
+          <li>Handling incoming invoices - automatic downloading, verification, and import of data into accounting systems,</li>
+          <li>Integration with databases (MySQL, MSSQL, PostgreSQL) and popular accounting systems,</li>
+          <li>Administrative panel and dashboard with a preview of invoice statuses and integration errors,</li>
+          <li>Integration of KSeF REST API with existing client applications.</li>
         </ul>
 
-        <h3>Section 2</h3>
-        <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.</p>
-        <p> Cras consequat. Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+        <h3>Automation of Price Reporting to dane.gov</h3>
+        <p>A complete system for automatic price reporting and data publication to dane.gov.pl - from extraction and validation, through scheduling and versioning, to monitoring and audit.</p>
+        <p><strong>What we deliver:</strong></p>
+        <ul>
+          <li>Data connectors: import from databases (SQL/NoSQL), files (CSV/XLSX/JSON), API, and SFTP; mapping fields to dane.gov schemas.</li>
+          <li>Validation and data quality: business and legal rules, anomaly detection, preview of changes before publication.</li>
+          <li>Schedules and retries: cyclical submissions (CRON), intelligent retries, prioritized queuing.</li>
+          <li>Dataset versioning: history of changes, comparisons, 'roll-back' capability.</li>
+          <li>Audit trail: who/what/when - full operation logs and action signatures.</li>
+        </ul>
+        <h4>Two deployment models (to choose from):</h4>
+        <p><strong>1. Managed service in our environment (SaaS)</strong></p>
+        <ul>
+          <li>2-center redundancy (active-active/active-standby) - automatic failover.</li>
+          <li>24/7 Monitoring &amp; alerting (availability, delays, validation errors, API limits), dashboards, and notifications.</li>
+          <li>Archiving and retention: storage policies, snapshots, point-in-time recovery.</li>
+          <li>Data CMS: panel for managing datasets, metadata, schemas, permissions, and publication.</li>
+          <li>SLA and support: clearly defined response times, care from the engineering team.</li>
+        </ul>
+        <p><strong>2. Autonomous system at the client's premises (on-prem / private cloud)</strong></p>
+        <ul>
+          <li>Delivered as containers/VM with full documentation and installation scripts.</li>
+          <li>HA options (cluster/duplication), backups, and recovery policies.</li>
+          <li>'Zero-downtime' updates, schema migrations, and regression tests in a standardized pipeline.</li>
+        </ul>
+        <p><strong>Add-ons and extensions:</strong></p>
+        <ul>
+          <li>Business rules per dataset (e.g., rounding, price thresholds, aggregations).</li>
+          <li>Integrations with ERP/CRM/data warehouse; webhooks and API for orchestration.</li>
+          <li>Management reports: publication status, errors, trends, and resource completeness.</li>
+        </ul>
 
-        <h3>Summary</h3>
-        <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
+        <h3>Software for Housing Cooperatives</h3>
+        <p>Turnkey systems for property administration:</p>
+        <ul>
+          <li>utility settlements (water, central heating, waste), charges, and debt collection;</li>
+          <li>handling resident requests, service orders, and inspections;</li>
+          <li>e-resident file, integrations with payments and banking;</li>
+          <li>reports for the board, GDPR and authorization modules.</li>
+        </ul>
+
+        <h3>Websites for Real Estate Developers</h3>
+        <p>We create modern websites for real estate developers, fully integrated with our administrative and reporting services, providing a seamless experience for both developers and their clients.</p>
+
+        <h3>IT Training (Technical and 'Non-tech')</h3>
+        <p>Practical training tailored to the team:</p>
+        <ul>
+          <li>Dev fundamentals (Git, CI/CD, testing, clean code);</li>
+          <li>security in practice (phishing, DLP, best practices);</li>
+          <li>system and cloud administration (Linux, Docker/K8s, backups);</li>
+          <li>workshops for business staff: 'speaking the same language as IT'.</li>
+        </ul>
+
+        <h3>Security Audits</h3>
+        <p>We check where the risks really are:</p>
+        <ul>
+          <li>configuration audit (systems, network, identity, backups);</li>
+          <li>report with priorities and a remediation plan.</li>
+        </ul>
+
+        <h3>Security and Software Consulting</h3>
+        <p>Decisions based on facts:</p>
+        <ul>
+          <li>review of SDLC processes and tool recommendations;</li>
+          <li>business continuity plan (BCP/DR), incident procedures;</li>
+          <li>system development roadmap, preparation for certification.</li>
+        </ul>
+
+        <h3>Cooperation Models</h3>
+        <p>Turnkey Project • Development Sprints • Maintenance/SLA • Ad-hoc Consultations</p>
+
       </div>
-      <a href="../../index-en.html" class="button-like" style="margin-top: 32px; text-align: center;">Go back</a>
+      <a href="../../index-en.html" class="button-like" style="margin-top: 32px; text-align: center;">Back</a>
     </section>
   </main>
 
   <footer class="wrap small">
     <p>© <button id="cyberpunk-toggle" class="easter-egg">2025</button> InfoDevelopment. All rights reserved.</p>
     <div class="footer-links">
-      <a href="mailto:brunon.socha@gmail.com">Email</a>
-      <a href="tel:668830062">Call</a>
-      <a href="imprint-en.html">Imprint</a>
+      <a href="mailto:biuro@infodevelopment.pl">Email Us</a> •
+      <a href="tel:782892740">Call Us</a> •
+      <u>Imprint</u> •<!-- Remove this line and uncomment the line below it. -->
+      <!--<a href="src/pages/imprint.html">Imprint</a>-->
       <a href="privacy-en.html">Privacy Policy</a>
     </div>
   </footer>
